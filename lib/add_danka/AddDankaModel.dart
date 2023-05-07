@@ -16,12 +16,4 @@ class AddDankaModel extends ChangeNotifier {
   Future inquery() async {
     await databaseController.query();
   }
-
-  // bool setState(pValue) {
-  //   if (pValue) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
 }

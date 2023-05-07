@@ -5,8 +5,6 @@ import 'package:shundoji_management_app/add_danka/AddDankaModel.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 import 'package:shundoji_management_app/common_database/DatabaseHelper.dart';
 
-import '../domein/danka.dart';
-
 class AddDankaPage extends StatefulWidget {
   const AddDankaPage({super.key});
 
@@ -87,28 +85,6 @@ class _AddDankaPageState extends State<AddDankaPage> {
                   ),
                 ]);
               }),
-
-              // child: Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     ElevatedButton(
-              //       child: Text('登録', style: TextStyle(fontSize: 35),),
-              //       onPressed: databaseController.insert,
-              //     ),
-              //     ElevatedButton(
-              //       child: Text('照会', style: TextStyle(fontSize: 35),),
-              //       onPressed: databaseController.query,
-              //     ),
-              //     ElevatedButton(
-              //       child: Text('更新', style: TextStyle(fontSize: 35),),
-              //       onPressed: databaseController.update,
-              //     ),
-              //     ElevatedButton(
-              //       child: Text('削除', style: TextStyle(fontSize: 35),),
-              //       onPressed: databaseController.delete,
-              //     ),
-              //   ],
-              // ),
             )));
   }
 
