@@ -9,11 +9,22 @@ class AddDankaModel extends ChangeNotifier {
   final databaseController = DatabaseController();
 
   Future addDanka() async {
-    await databaseController.insert(name, address, buppanFlg, others);
+    int convertedBuppanFlg = _ConvertBoolToInt(buppanFlg);
+    await databaseController.insert(name, address, convertedBuppanFlg, others);
   }
 
 // 最後に削除(デバッグ用で実装)
   Future inquery() async {
     await databaseController.query();
+  }
+
+  int _ConvertBoolToInt(pBool) {
+    int rtnValue;
+    if (pBool) {
+      rtnValue = 1;
+    } else {
+      rtnValue = 0;
+    }
+    return rtnValue;
   }
 }
