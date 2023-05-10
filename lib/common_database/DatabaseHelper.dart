@@ -10,7 +10,7 @@ class DatabaseHelper {
 
   static final table = 'danka'; // テーブル名
 
-  static final columnId = 'danka_id'; // カラム名：user_id
+  static final columnId = 'danka_id'; // カラム名：danka_id
   static final columnName = 'name'; // カラム名:name
   static final columnAddress = 'address'; // カラム名：address
   static final columnBuppanFlg = 'buppanFlg'; // カラム名：buppanFlg

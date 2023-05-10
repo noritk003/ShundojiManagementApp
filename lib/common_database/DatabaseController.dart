@@ -20,6 +20,7 @@ class DatabaseController {
     final allRows = await databaseHelper.queryAllRows();
     print('全てのデータを照会しました。');
     allRows.forEach(print);
+    return allRows;
   }
 
   // データ更新
