@@ -5,14 +5,14 @@ import 'package:shundoji_management_app/domein/danka.dart';
 class DankaListModel extends ChangeNotifier {
   List<Danka>? dankaList;
 
-  String dankaId = "";
+  int? dankaId;
   String name = "";
   String address = "";
-  bool buppanFlg = true;
+  String buppanFlg = "";
   String others = "";
 
   // Future<List<Danka>> getDatabase() async {
-  void getDatabase() async {
+  void fetchDabkaList() async {
     List<Map<String, dynamic>> dbAllRow = await DatabaseController().query();
     dankaList = dbAllRow.map((Map data) {
       dankaId = data['danka_id'];
@@ -20,7 +20,7 @@ class DankaListModel extends ChangeNotifier {
       address = data['address'];
       buppanFlg = data['buppanFlg'];
       others = data['others'];
-      return Danka(dankaId, name, address, buppanFlg, others);
+      return Danka(dankaId!, name, address, buppanFlg, others);
     }).toList();
     notifyListeners();
   }

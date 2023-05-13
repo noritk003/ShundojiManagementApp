@@ -1,20 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-import 'package:shundoji_management_app/add_danka/AddDankaModel.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
-import 'package:shundoji_management_app/common_database/DatabaseHelper.dart';
 
 import '../domein/danka.dart';
 import 'DankaListModel.dart';
 
-
 class DankaListPage extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DankaListModel>(
-        create: (_) => DankaListModel(),
+        create: (_) => DankaListModel()..fetchDabkaList(),
         child: Scaffold(
             appBar: AppBar(
               title: Text('追加ページ'),
@@ -27,15 +23,92 @@ class DankaListPage extends StatelessWidget {
                   return CircularProgressIndicator();
                 }
 
-                final List<Widget> widgets = dankaList
-                    .map(
-                      (book) => Slidable(
-                        child: ListTile(
-                          title: Text(book.name),
-                          subtitle: Text(book.address),
-                        );
+                final List<Widget> widgets = dankaList.map((danka) => Slidable(
+                      child: ListTile(
+                        title: Text(danka.name),
+                        subtitle: Text(danka.address),
+                      ),
+                      endActionPane: ActionPane(
+                        motion: ScrollMotion(),
+                        children: [
+                          // 編集ボタン
+                          // SlidableAction(
+                          //   backgroundColor: Colors.black45,
+                          //   foregroundColor: Colors.white,
+                          //   icon: Icons.edit,
+                          //   label: '編集',
+                          //   onPressed: (BuildContext) async {
+                          //     // 編集画面に遷移
+                          //     final String? title = await Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) => EditBookPage(book),
+                          //       ),
+                          //     );
 
+                          //     if (title != null) {
+                          //       final snackBar = SnackBar(
+                          //         backgroundColor: Colors.green,
+                          //         content: Text('$titleを編集しました'),
+                          //       );
+                          //       ScaffoldMessenger.of(context)
+                          //           .showSnackBar(snackBar);
+                          //     }
+                          //     model.fetchBookList();
+                          //   },
+                          // ),
+
+                          // 削除ボタン
+                          SlidableAction(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            icon: Icons.delete,
+                            label: '削除',
+                            onPressed: (BuildContext) async {
+                              // 削除しますか？ポップ表示
+                              await showComfirmDialog(context, danka, model);
+                            },
+                          ),
+                        ],
+                      ),
+                    )).toList();
+                return ListView(
+                  children: widgets,
+                );
               }),
             )));
+  }
+
+  Future showComfirmDialog(
+      BuildContext context, Danka danka, DankaListModel model) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("削除の確認"),
+          content: Text("『${danka.name}』を削除しますか？"),
+          actions: [
+            TextButton(
+              child: Text("いいえ"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text("はい"),
+              onPressed: () async {
+                await DatabaseController().delete(danka);
+                Navigator.pop(context);
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text('${danka.name}を削除しました'),
+                );
+                model.fetchDabkaList();
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
