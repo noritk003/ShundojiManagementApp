@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:shundoji_management_app/add_danka/AddDankaPage.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 
 import '../domein/danka.dart';
@@ -10,20 +11,21 @@ class DankaListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DankaListModel>(
-        create: (_) => DankaListModel()..fetchDabkaList(),
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text('追加ページ'),
-            ),
-            body: Center(
-              child: Consumer<DankaListModel>(builder: (context, model, child) {
-                final List<Danka>? dankaList = model.dankaList;
+      create: (_) => DankaListModel()..fetchDabkaList(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('追加ページ'),
+        ),
+        body: Center(
+          child: Consumer<DankaListModel>(builder: (context, model, child) {
+            final List<Danka>? dankaList = model.dankaList;
 
-                if (dankaList == null) {
-                  return CircularProgressIndicator();
-                }
+            if (dankaList == null) {
+              return CircularProgressIndicator();
+            }
 
-                final List<Widget> widgets = dankaList.map((danka) => Slidable(
+            final List<Widget> widgets = dankaList
+                .map((danka) => Slidable(
                       child: ListTile(
                         title: Text(danka.name),
                         subtitle: Text(danka.address),
@@ -71,12 +73,42 @@ class DankaListPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )).toList();
-                return ListView(
-                  children: widgets,
+                    ))
+                .toList();
+            return ListView(
+              children: widgets,
+            );
+          }),
+        ),
+        floatingActionButton:
+            Consumer<DankaListModel>(builder: (context, model, child) {
+          return FloatingActionButton(
+            onPressed: () async {
+              // 画面遷移
+              final bool? added = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddDankaPage(),
+                  fullscreenDialog: true,
+                ),
+              );
+
+              if (added != null && added) {
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Text('本を追加しました'),
                 );
-              }),
-            )));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+              model.fetchDabkaList();
+            },
+            tooltip: 'Increment',
+            child: Icon(Icons.add),
+            backgroundColor: Color(0xff009944),
+          );
+        }),
+      ),
+    );
   }
 
   Future showComfirmDialog(
