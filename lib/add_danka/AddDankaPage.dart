@@ -44,7 +44,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
                         value: buppanState,
                         onChanged: (value) {
                           setState(() => buppanState = value);
-                          model.buppanFlg = buppanState;
+                          model.buppanFlg = model.ConvertBoolToInt(buppanState);
                         },
                       ),
                       TextField(
@@ -69,17 +69,22 @@ class _AddDankaPageState extends State<AddDankaPage> {
                             style: TextStyle(fontSize: 35),
                           ),
                           onPressed: () async {
-                            model.addDanka();
-                          }),
-
-                      // 最後に削除(デバッグ用で実装)
-                      ElevatedButton(
-                          child: Text(
-                            '照会',
-                            style: TextStyle(fontSize: 35),
-                          ),
-                          onPressed: () async {
-                            model.inquery();
+                            // model.addDanka();
+                            try {
+                              model.startLoading();
+                              await model.addDanka();
+                              // Navigator.of(context).pop(true);
+                              Navigator.of(context).pop(model.name);
+                            } catch (e) {
+                              final snackBar = SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text(e.toString()),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } finally {
+                              model.endLoading();
+                            }
                           }),
                     ],
                   ),

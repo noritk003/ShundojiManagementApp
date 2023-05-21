@@ -8,7 +8,7 @@ class DankaListModel extends ChangeNotifier {
   int? dankaId;
   String name = "";
   String address = "";
-  String buppanFlg = "";
+  int buppanFlg = 1;
   String others = "";
 
   // Future<List<Danka>> getDatabase() async {

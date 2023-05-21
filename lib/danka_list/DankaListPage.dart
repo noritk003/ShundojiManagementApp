@@ -13,79 +13,116 @@ class DankaListPage extends StatelessWidget {
     return ChangeNotifierProvider<DankaListModel>(
       create: (_) => DankaListModel()..fetchDabkaList(),
       child: Scaffold(
+        backgroundColor: Color(0xffFBFAF5),
         appBar: AppBar(
-          title: Text('追加ページ'),
-        ),
+            // title: Text('一覧'),
+            flexibleSpace: Container(
+                decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/appbar_bk.jpg'), fit: BoxFit.cover),
+        ))),
         body: Center(
-          child: Consumer<DankaListModel>(builder: (context, model, child) {
-            final List<Danka>? dankaList = model.dankaList;
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Consumer<DankaListModel>(builder: (context, model, child) {
+              final List<Danka>? dankaList = model.dankaList;
 
-            if (dankaList == null) {
-              return CircularProgressIndicator();
-            }
+              if (dankaList == null) {
+                return CircularProgressIndicator();
+              }
 
-            final List<Widget> widgets = dankaList
-                .map((danka) => Slidable(
-                      child: ListTile(
-                        title: Text(danka.name),
-                        subtitle: Text(danka.address),
-                      ),
-                      endActionPane: ActionPane(
-                        motion: ScrollMotion(),
-                        children: [
-                          // 編集ボタン
-                          // SlidableAction(
-                          //   backgroundColor: Colors.black45,
-                          //   foregroundColor: Colors.white,
-                          //   icon: Icons.edit,
-                          //   label: '編集',
-                          //   onPressed: (BuildContext) async {
-                          //     // 編集画面に遷移
-                          //     final String? title = await Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //         builder: (context) => EditBookPage(book),
-                          //       ),
-                          //     );
-
-                          //     if (title != null) {
-                          //       final snackBar = SnackBar(
-                          //         backgroundColor: Colors.green,
-                          //         content: Text('$titleを編集しました'),
-                          //       );
-                          //       ScaffoldMessenger.of(context)
-                          //           .showSnackBar(snackBar);
-                          //     }
-                          //     model.fetchBookList();
-                          //   },
-                          // ),
-
-                          // 削除ボタン
-                          SlidableAction(
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: '削除',
-                            onPressed: (BuildContext) async {
-                              // 削除しますか？ポップ表示
-                              await showComfirmDialog(context, danka, model);
-                            },
+              final List<Widget> widgets = dankaList
+                  .map((danka) => Slidable(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, right: 30, bottom: 10, left: 30),
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: 10, right: 15, bottom: 10, left: 15),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xffEAE8E8)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                color: Color(0xffFBFAF5),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color(0xff404040),
+                                      offset: Offset(3, 3),
+                                      blurRadius: 3),
+                                  BoxShadow(
+                                      color: Color(0xffffffff),
+                                      offset: Offset(-3, -3),
+                                      blurRadius: 3)
+                                ]),
+                            child: ListTile(
+                              title: Text(
+                                danka.name,
+                                style: TextStyle(fontSize: 24),
+                              ),
+                              subtitle: Text(danka.address),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(200))),
+                            ),
                           ),
-                        ],
-                      ),
-                    ))
-                .toList();
-            return ListView(
-              children: widgets,
-            );
-          }),
+                        ),
+                        endActionPane: ActionPane(
+                          motion: ScrollMotion(),
+                          children: [
+                            // 編集ボタン
+                            // SlidableAction(
+                            //   backgroundColor: Colors.black45,
+                            //   foregroundColor: Colors.white,
+                            //   icon: Icons.edit,
+                            //   label: '編集',
+                            //   onPressed: (BuildContext) async {
+                            //     // 編集画面に遷移
+                            //     final String? title = await Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //         builder: (context) => EditBookPage(book),
+                            //       ),
+                            //     );
+
+                            //     if (title != null) {
+                            //       final snackBar = SnackBar(
+                            //         backgroundColor: Colors.green,
+                            //         content: Text('$titleを編集しました'),
+                            //       );
+                            //       ScaffoldMessenger.of(context)
+                            //           .showSnackBar(snackBar);
+                            //     }
+                            //     model.fetchBookList();
+                            //   },
+                            // ),
+
+                            // 削除ボタン
+                            SlidableAction(
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                              icon: Icons.delete,
+                              label: '削除',
+                              onPressed: (BuildContext) async {
+                                // 削除しますか？ポップ表示
+                                await showComfirmDialog(context, danka, model);
+                              },
+                            ),
+                          ],
+                        ),
+                      ))
+                  .toList();
+              return ListView(
+                children: widgets,
+              );
+            }),
+          ),
         ),
         floatingActionButton:
             Consumer<DankaListModel>(builder: (context, model, child) {
           return FloatingActionButton(
             onPressed: () async {
               // 画面遷移
-              final bool? added = await Navigator.push(
+              final String? added = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => AddDankaPage(),
@@ -93,18 +130,19 @@ class DankaListPage extends StatelessWidget {
                 ),
               );
 
-              if (added != null && added) {
+              model.fetchDabkaList();
+              if (added != null) {
                 final snackBar = SnackBar(
                   backgroundColor: Colors.green,
-                  content: Text('本を追加しました'),
+                  content: Text('${added}さんを追加しました'),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
-              model.fetchDabkaList();
+              // model.fetchDabkaList();
             },
             tooltip: 'Increment',
-            child: Icon(Icons.add),
-            backgroundColor: Color(0xff009944),
+            child: Icon(Icons.group_add),
+            backgroundColor: Color(0xffFF5959),
           );
         }),
       ),

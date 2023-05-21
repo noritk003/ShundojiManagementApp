@@ -62,7 +62,7 @@ class DatabaseHelper {
             $columnId INTEGER PRIMARY KEY,
             $columnName TEXT NOT NULL,
             $columnAddress TEXT NOT NULL,
-            $columnBuppanFlg TEXT NOT NULL,
+            $columnBuppanFlg INTEGER NOT NULL,
             $columnOthers TEXT NOT NULL
           )
           ''');

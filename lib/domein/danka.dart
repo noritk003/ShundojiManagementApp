@@ -5,6 +5,6 @@ class Danka {
   int dankaId;
   String name;
   String address;
-  String buppanFlg;
+  int buppanFlg;
   String others;
 }
