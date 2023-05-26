@@ -15,12 +15,36 @@ class DankaListPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Color(0xffFBFAF5),
         appBar: AppBar(
-            // title: Text('一覧'),
-            flexibleSpace: Container(
-                decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('images/appbar_bk.jpg'), fit: BoxFit.cover),
-        ))),
+          flexibleSpace: Container(
+              decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/appbar_bk.jpg'), fit: BoxFit.cover),
+          )),
+          actions: [
+            Container(
+              child: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () async {
+                  // 画面遷移
+                  final String? added = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddDankaPage(),
+                      fullscreenDialog: true,
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              width: 40,
+            ),
+          ],
+        ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 20),

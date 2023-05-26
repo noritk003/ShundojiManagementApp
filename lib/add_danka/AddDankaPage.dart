@@ -24,108 +24,353 @@ class _AddDankaPageState extends State<AddDankaPage> {
     return ChangeNotifierProvider<AddDankaModel>(
         create: (_) => AddDankaModel(),
         child: Scaffold(
+            backgroundColor: Color(0xffFBFAF5),
             appBar: AppBar(
-              title: Text('追加ページ'),
+              iconTheme: IconThemeData(color: Colors.black),
+              flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('images/appbar_bk.jpg'),
+                    fit: BoxFit.cover),
+              )),
+              actions: [
+                Icon(
+                  Icons.save,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                SizedBox(
+                  width: 40,
+                )
+              ],
             ),
             body: Center(
               child: Consumer<AddDankaModel>(builder: (context, model, child) {
                 return Stack(children: [
                   Column(
                     children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: '氏名',
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50, bottom: 12),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Color(0xffFBFAF5),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(7)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xffB3B3B3),
+                                        offset: Offset(-1, -1)),
+                                    BoxShadow(
+                                        color: Color(0xffffffff),
+                                        offset: Offset(1, 1))
+                                  ]),
+                              child: SizedBox(
+                                  width: 60,
+                                  height: 30,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          '名前',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: SizedBox(
+                                height: 35,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    hintText: '名前',
+                                    hintStyle: TextStyle(fontSize: 12),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0)),
+                                        borderSide: BorderSide(
+                                            color: Color(0xffD9D9D9))),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0)),
+                                        borderSide: BorderSide(
+                                            color: Color(0xffD9D9D9))),
+                                  ),
+                                  onChanged: (text) {
+                                    model.name = text;
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                          ],
                         ),
-                        onChanged: (text) {
-                          model.name = text;
-                        },
                       ),
-                      CupertinoSwitch(
-                        value: buppanState,
-                        onChanged: (value) {
-                          setState(() => buppanState = value);
-                          model.buppanFlg = model.ConvertBoolToInt(buppanState);
-                        },
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: '地域',
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12, bottom: 12),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Color(0xffFBFAF5),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(7)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xffB3B3B3),
+                                        offset: Offset(-1, -1)),
+                                    BoxShadow(
+                                        color: Color(0xffffffff),
+                                        offset: Offset(1, 1))
+                                  ]),
+                              child: SizedBox(
+                                  width: 60,
+                                  height: 30,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          '地域',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: SizedBox(
+                                height: 35,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    hintText: '地域',
+                                    hintStyle: TextStyle(fontSize: 12),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0)),
+                                        borderSide: BorderSide(
+                                            color: Color(0xffD9D9D9))),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0)),
+                                        borderSide: BorderSide(
+                                            color: Color(0xffD9D9D9))),
+                                  ),
+                                  onChanged: (text) {
+                                    model.address = text;
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                          ],
                         ),
-                        onChanged: (text) {
-                          model.address = text;
-                        },
                       ),
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'その他',
-                        ),
-                        onChanged: (text) {
-                          model.others = text;
-                        },
-                      ),
-                      ElevatedButton(
-                          child: Text(
-                            '登録',
-                            style: TextStyle(fontSize: 35),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 40,
                           ),
-                          onPressed: () async {
-                            // model.addDanka();
-                            try {
-                              model.startLoading();
-                              await model.addDanka();
-                              // Navigator.of(context).pop(true);
-                              Navigator.of(context).pop(model.name);
-                            } catch (e) {
-                              final snackBar = SnackBar(
-                                backgroundColor: Colors.red,
-                                content: Text(e.toString()),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } finally {
-                              model.endLoading();
-                            }
-                          }),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Color(0xffFBFAF5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(7)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color(0xffB3B3B3),
+                                      offset: Offset(-1, -1)),
+                                  BoxShadow(
+                                      color: Color(0xffffffff),
+                                      offset: Offset(1, 1))
+                                ]),
+                            child: SizedBox(
+                                width: 60,
+                                height: 30,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        '仏飯',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          CupertinoSwitch(
+                            value: buppanState,
+                            onChanged: (value) {
+                              setState(() => buppanState = value);
+                              model.buppanFlg =
+                                  model.ConvertBoolToInt(buppanState);
+                            },
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12, bottom: 12),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Color(0xffFBFAF5),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(7)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xffB3B3B3),
+                                        offset: Offset(-1, -1)),
+                                    BoxShadow(
+                                        color: Color(0xffffffff),
+                                        offset: Offset(1, 1))
+                                  ]),
+                              child: SizedBox(
+                                  width: 60,
+                                  height: 30,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          'その他',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: TextField(
+                                keyboardType: TextInputType.multiline,
+                                maxLines: 10,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10),
+                                  hintText: 'その他',
+                                  hintStyle: TextStyle(fontSize: 12),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide:
+                                          BorderSide(color: Color(0xffD9D9D9))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide:
+                                          BorderSide(color: Color(0xffD9D9D9))),
+                                ),
+                                onChanged: (text) {
+                                  model.others = text;
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: 75,
+                        height: 30,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xff404040),
+                                    offset: Offset(1, 1),
+                                    blurRadius: 3),
+                                BoxShadow(
+                                    color: Color(0xffffffff),
+                                    offset: Offset(-1, -1),
+                                    blurRadius: 3)
+                              ]),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  backgroundColor: Color(0xffFBFAF5),
+                                  foregroundColor: Color(0xffffaebd7),
+                                  elevation: 0,
+                                  shadowColor: Color(0xff404040)),
+                              child: Text(
+                                '追加',
+                                style: TextStyle(
+                                    fontSize: 12, color: Color(0xff000000)),
+                              ),
+                              onPressed: () async {
+                                // model.addDanka();
+                                try {
+                                  model.startLoading();
+                                  await model.addDanka();
+                                  // Navigator.of(context).pop(true);
+                                  Navigator.of(context).pop(model.name);
+                                } catch (e) {
+                                  final snackBar = SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: Text(e.toString()),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } finally {
+                                  model.endLoading();
+                                }
+                              }),
+                        ),
+                      ),
                     ],
                   ),
                 ]);
               }),
             )));
   }
-
-  // // 登録ボタンクリック
-  // void _insert() async {
-  //   // row to insert
-  //   Map<String, dynamic> row = {
-  //     DatabaseHelper.columnName : '山田　太郎',
-  //     DatabaseHelper.columnAge  : 35
-  //   };
-  //   final id = await dbHelper.insert(row);
-  //   print('登録しました。id: $id');
-  // }
-
-  // // 照会ボタンクリック
-  // void _query() async {
-  //   final allRows = await dbHelper.queryAllRows();
-  //   print('全てのデータを照会しました。');
-  //   allRows.forEach(print);
-  // }
-
-  // // 更新ボタンクリック
-  // void _update() async {
-  //    Map<String, dynamic> row = {
-  //     DatabaseHelper.columnId   : 1,
-  //     DatabaseHelper.columnName : '鈴木　一郎',
-  //     DatabaseHelper.columnAge  : 48
-  //   };
-  //   final rowsAffected = await dbHelper.update(row);
-  //   print('更新しました。 ID：$rowsAffected ');
-  // }
-
-  // // 削除ボタンクリック
-  // void _delete() async {
-  //   final id = await dbHelper.queryRowCount();
-  //   final rowsDeleted = await dbHelper.delete(id!);
-  //   print('削除しました。 $rowsDeleted ID: $id');
-  // }
 }
