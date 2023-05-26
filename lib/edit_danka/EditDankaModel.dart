@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 
-class AddDankaModel extends ChangeNotifier {
+class EditDankaModel extends ChangeNotifier {
   String? name;
   String? address;
   int buppanFlg = 1;
@@ -21,8 +21,9 @@ class AddDankaModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future addDanka() async {
-    await databaseController.insert(name, address, buppanFlg, others);
+  Future updateDanka() async {
+    
+    await databaseController.update(name, address, buppanFlg, others);
   }
 
   int ConvertBoolToInt(pBool) {

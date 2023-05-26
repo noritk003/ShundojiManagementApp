@@ -3,8 +3,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:shundoji_management_app/add_danka/AddDankaPage.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
+import 'package:shundoji_management_app/danka_detail/DankaDetailPage.dart';
 
 import '../domein/danka.dart';
+import '../edit_danka/EditDankaPage.dart';
 import 'DankaListModel.dart';
 
 class DankaListPage extends StatelessWidget {
@@ -20,30 +22,6 @@ class DankaListPage extends StatelessWidget {
             image: DecorationImage(
                 image: AssetImage('images/appbar_bk.jpg'), fit: BoxFit.cover),
           )),
-          actions: [
-            Container(
-              child: IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: () async {
-                  // 画面遷移
-                  final String? added = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddDankaPage(),
-                      fullscreenDialog: true,
-                    ),
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              width: 40,
-            ),
-          ],
         ),
         body: Center(
           child: Padding(
@@ -84,42 +62,26 @@ class DankaListPage extends StatelessWidget {
                                 style: TextStyle(fontSize: 24),
                               ),
                               subtitle: Text(danka.address),
+                              trailing: Icon(Icons.arrow_forward_ios_rounded),
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(200))),
+                              onTap: () async {
+                                // 画面遷移
+                                final String? added = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DankaDetailPage(),
+                                    fullscreenDialog: true,
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
                         endActionPane: ActionPane(
                           motion: ScrollMotion(),
                           children: [
-                            // 編集ボタン
-                            // SlidableAction(
-                            //   backgroundColor: Colors.black45,
-                            //   foregroundColor: Colors.white,
-                            //   icon: Icons.edit,
-                            //   label: '編集',
-                            //   onPressed: (BuildContext) async {
-                            //     // 編集画面に遷移
-                            //     final String? title = await Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //         builder: (context) => EditBookPage(book),
-                            //       ),
-                            //     );
-
-                            //     if (title != null) {
-                            //       final snackBar = SnackBar(
-                            //         backgroundColor: Colors.green,
-                            //         content: Text('$titleを編集しました'),
-                            //       );
-                            //       ScaffoldMessenger.of(context)
-                            //           .showSnackBar(snackBar);
-                            //     }
-                            //     model.fetchBookList();
-                            //   },
-                            // ),
-
                             // 削除ボタン
                             SlidableAction(
                               backgroundColor: Colors.red,
@@ -162,7 +124,6 @@ class DankaListPage extends StatelessWidget {
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
-              // model.fetchDabkaList();
             },
             tooltip: 'Increment',
             child: Icon(Icons.group_add),

@@ -5,14 +5,14 @@ import 'package:shundoji_management_app/add_danka/AddDankaModel.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 import 'package:shundoji_management_app/common_database/DatabaseHelper.dart';
 
-class AddDankaPage extends StatefulWidget {
-  const AddDankaPage({super.key});
+class DankaDetailPage extends StatefulWidget {
+  const DankaDetailPage({super.key});
 
   @override
-  State<AddDankaPage> createState() => _AddDankaPageState();
+  State<DankaDetailPage> createState() => _DankaDetailPageState();
 }
 
-class _AddDankaPageState extends State<AddDankaPage> {
+class _DankaDetailPageState extends State<DankaDetailPage> {
   bool buppanState = true;
 
   // DatabaseHelper クラスのインスタンス取得
@@ -49,6 +49,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
                 return Stack(children: [
                   Column(
                     children: [
+                      Text('詳細ページ'),
                       Padding(
                         padding: const EdgeInsets.only(top: 50, bottom: 12),
                         child: Row(

@@ -5,14 +5,16 @@ import 'package:shundoji_management_app/add_danka/AddDankaModel.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 import 'package:shundoji_management_app/common_database/DatabaseHelper.dart';
 
-class AddDankaPage extends StatefulWidget {
-  const AddDankaPage({super.key});
+import 'EditDankaModel.dart';
+
+class EditDankaPage extends StatefulWidget {
+  const EditDankaPage({super.key});
 
   @override
-  State<AddDankaPage> createState() => _AddDankaPageState();
+  State<EditDankaPage> createState() => _EditDankaPageState();
 }
 
-class _AddDankaPageState extends State<AddDankaPage> {
+class _EditDankaPageState extends State<EditDankaPage> {
   bool buppanState = true;
 
   // DatabaseHelper クラスのインスタンス取得
@@ -45,7 +47,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
               ],
             ),
             body: Center(
-              child: Consumer<AddDankaModel>(builder: (context, model, child) {
+              child: Consumer<EditDankaModel>(builder: (context, model, child) {
                 return Stack(children: [
                   Column(
                     children: [
@@ -343,14 +345,14 @@ class _AddDankaPageState extends State<AddDankaPage> {
                                   elevation: 0,
                                   shadowColor: Color(0xff404040)),
                               child: Text(
-                                '追加',
+                                '更新',
                                 style: TextStyle(
                                     fontSize: 12, color: Color(0xff000000)),
                               ),
                               onPressed: () async {
                                 try {
                                   model.startLoading();
-                                  await model.addDanka();
+                                  await model.updateDanka();
                                   Navigator.of(context).pop(model.name);
                                 } catch (e) {
                                   final snackBar = SnackBar(

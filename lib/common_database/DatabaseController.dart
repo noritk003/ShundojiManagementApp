@@ -24,13 +24,13 @@ class DatabaseController {
   }
 
   // データ更新
-  void update() async {
+  Future update(name, address, buppanFlg, others) async {
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: 1,
-      DatabaseHelper.columnName: '鈴木　一郎',
-      DatabaseHelper.columnAddress: 35,
-      DatabaseHelper.columnBuppanFlg: 0,
-      DatabaseHelper.columnOthers: 'その他'
+      DatabaseHelper.columnName: name,
+      DatabaseHelper.columnAddress: address,
+      DatabaseHelper.columnBuppanFlg: buppanFlg,
+      DatabaseHelper.columnOthers: others
     };
     final rowsAffected = await databaseHelper.update(row);
     print('更新しました。 ID：$rowsAffected ');
