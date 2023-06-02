@@ -71,7 +71,8 @@ class DankaListPage extends StatelessWidget {
                                 final String? added = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => DankaDetailPage(),
+                                    builder: (context) =>
+                                        DankaDetailPage(danka),
                                     fullscreenDialog: true,
                                   ),
                                 );
