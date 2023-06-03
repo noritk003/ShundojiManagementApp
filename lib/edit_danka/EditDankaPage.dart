@@ -23,8 +23,8 @@ class _EditDankaPageState extends State<EditDankaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AddDankaModel>(
-        create: (_) => AddDankaModel(),
+    return ChangeNotifierProvider<EditDankaModel>(
+        create: (_) => EditDankaModel(),
         child: Scaffold(
             backgroundColor: Color(0xffFBFAF5),
             appBar: AppBar(

@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:shundoji_management_app/add_danka/AddDankaPage.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 import 'package:shundoji_management_app/danka_detail/DankaDetailPage.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../domein/danka.dart';
 import '../edit_danka/EditDankaPage.dart';
@@ -68,12 +70,12 @@ class DankaListPage extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(200))),
                               onTap: () async {
                                 // 画面遷移
-                                final String? added = await Navigator.push(
+                                await Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        DankaDetailPage(danka),
-                                    fullscreenDialog: true,
+                                  PageTransition(
+                                    child: DankaDetailPage(danka), //画面遷移先
+                                    type: PageTransitionType
+                                        .rightToLeft, //アニメーションの種類
                                   ),
                                 );
                               },

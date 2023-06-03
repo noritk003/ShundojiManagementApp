@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shundoji_management_app/add_danka/AddDankaModel.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 import 'package:shundoji_management_app/common_database/DatabaseHelper.dart';
+import 'package:shundoji_management_app/edit_danka/EditDankaPage.dart';
 
 import '../domein/danka.dart';
 
@@ -24,11 +25,25 @@ class DankaDetailPage extends StatelessWidget {
                 image: AssetImage('images/appbar_bk.jpg'), fit: BoxFit.cover),
           )),
           actions: [
-            Icon(
-              Icons.save,
-              color: Colors.black,
-              size: 30,
-            ),
+            IconButton(
+                icon: Icon(Icons.edit),
+                color: Colors.black,
+                iconSize: 30,
+                // size: 30,
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditDankaPage(),
+                      fullscreenDialog: true,
+                    ),
+                  );
+
+                  // MaterialPageRoute(
+                  //   builder: (context) => EditDankaPage(),
+                  //   fullscreenDialog: true,
+                  // ),
+                }),
             SizedBox(
               width: 40,
             )
@@ -37,6 +52,7 @@ class DankaDetailPage extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.only(top: 50, right: 40, left: 40),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 '名前',
@@ -64,10 +80,7 @@ class DankaDetailPage extends StatelessWidget {
                 '仏飯',
                 style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
               ),
-              Text(
-                'あり',
-                style: TextStyle(fontSize: 16),
-              ),
+              buppanFlgPresence(danka.buppanFlg),
               SizedBox(
                 height: 30,
               ),
@@ -85,5 +98,19 @@ class DankaDetailPage extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  Widget buppanFlgPresence(int buppanflg) {
+    if (buppanflg == 1) {
+      return Text(
+        'あり',
+        style: TextStyle(fontSize: 16),
+      );
+    } else {
+      return Text(
+        'なし',
+        style: TextStyle(fontSize: 16),
+      );
+    }
   }
 }
