@@ -29,20 +29,14 @@ class DankaDetailPage extends StatelessWidget {
                 icon: Icon(Icons.edit),
                 color: Colors.black,
                 iconSize: 30,
-                // size: 30,
                 onPressed: () async {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditDankaPage(),
+                      builder: (context) => EditDankaPage(danka),
                       fullscreenDialog: true,
                     ),
                   );
-
-                  // MaterialPageRoute(
-                  //   builder: (context) => EditDankaPage(),
-                  //   fullscreenDialog: true,
-                  // ),
                 }),
             SizedBox(
               width: 40,

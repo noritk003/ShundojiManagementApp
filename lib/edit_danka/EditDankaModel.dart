@@ -35,4 +35,14 @@ class EditDankaModel extends ChangeNotifier {
     }
     return rtnValue;
   }
+
+  bool ConvertIntToBool(pInt) {
+    bool rtnValue;
+    if (pInt == 1) {
+      rtnValue = true;
+    } else {
+      rtnValue = false;
+    }
+    return rtnValue;
+  }
 }

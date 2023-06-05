@@ -4,18 +4,27 @@ import 'package:provider/provider.dart';
 import 'package:shundoji_management_app/add_danka/AddDankaModel.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 import 'package:shundoji_management_app/common_database/DatabaseHelper.dart';
+import 'package:shundoji_management_app/domein/danka.dart';
 
 import 'EditDankaModel.dart';
 
 class EditDankaPage extends StatefulWidget {
-  const EditDankaPage({super.key});
+  // const EditDankaPage({super.key});
+
+  EditDankaPage(this.danka);
+
+  Danka danka;
 
   @override
-  State<EditDankaPage> createState() => _EditDankaPageState();
+  State<EditDankaPage> createState() => _EditDankaPageState(danka);
 }
 
 class _EditDankaPageState extends State<EditDankaPage> {
   bool buppanState = true;
+
+  _EditDankaPageState(this.danka);
+
+  Danka danka;
 
   // DatabaseHelper クラスのインスタンス取得
   final databaseHelper = DatabaseHelper.instance;
@@ -112,6 +121,8 @@ class _EditDankaPageState extends State<EditDankaPage> {
                                         borderSide: BorderSide(
                                             color: Color(0xffD9D9D9))),
                                   ),
+                                  controller:
+                                      TextEditingController(text: danka.name),
                                   onChanged: (text) {
                                     model.name = text;
                                   },
@@ -185,6 +196,8 @@ class _EditDankaPageState extends State<EditDankaPage> {
                                         borderSide: BorderSide(
                                             color: Color(0xffD9D9D9))),
                                   ),
+                                  controller: TextEditingController(
+                                      text: danka.address),
                                   onChanged: (text) {
                                     model.address = text;
                                   },
@@ -235,10 +248,10 @@ class _EditDankaPageState extends State<EditDankaPage> {
                             width: 10,
                           ),
                           CupertinoSwitch(
-                            value: buppanState,
+                            value: model.ConvertIntToBool(danka.buppanFlg),
                             onChanged: (value) {
                               setState(() => buppanState = value);
-                              model.buppanFlg =
+                              danka.buppanFlg =
                                   model.ConvertBoolToInt(buppanState);
                             },
                           ),
@@ -305,6 +318,8 @@ class _EditDankaPageState extends State<EditDankaPage> {
                                       borderSide:
                                           BorderSide(color: Color(0xffD9D9D9))),
                                 ),
+                                controller:
+                                    TextEditingController(text: danka.others),
                                 onChanged: (text) {
                                   model.others = text;
                                 },
