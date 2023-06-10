@@ -11,6 +11,8 @@ class DankaListModel extends ChangeNotifier {
   int buppanFlg = 1;
   String others = "";
 
+  Danka dank = Danka();
+
   // Future<List<Danka>> getDatabase() async {
   void fetchDabkaList() async {
     List<Map<String, dynamic>> dbAllRow = await DatabaseController().query();

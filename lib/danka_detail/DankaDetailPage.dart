@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shundoji_management_app/add_danka/AddDankaModel.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 import 'package:shundoji_management_app/common_database/DatabaseHelper.dart';
+import 'package:shundoji_management_app/danka_list/DankaListModel.dart';
 import 'package:shundoji_management_app/edit_danka/EditDankaPage.dart';
 
 import '../domein/danka.dart';
@@ -37,6 +38,7 @@ class DankaDetailPage extends StatelessWidget {
                       fullscreenDialog: true,
                     ),
                   );
+                  DankaListModel().fetchDabkaList();
                 }),
             SizedBox(
               width: 40,

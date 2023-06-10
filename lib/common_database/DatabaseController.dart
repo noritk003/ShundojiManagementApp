@@ -24,7 +24,7 @@ class DatabaseController {
   }
 
   // データ更新
-  Future update(name, address, buppanFlg, others) async {
+  Future update(id, name, address, buppanFlg, others) async {
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: 1,
       DatabaseHelper.columnName: name,

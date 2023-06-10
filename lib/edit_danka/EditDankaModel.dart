@@ -23,7 +23,7 @@ class EditDankaModel extends ChangeNotifier {
 
   Future updateDanka() async {
     
-    await databaseController.update(name, address, buppanFlg, others);
+    await databaseController.update(id, name, address, buppanFlg, others);
   }
 
   int ConvertBoolToInt(pBool) {
