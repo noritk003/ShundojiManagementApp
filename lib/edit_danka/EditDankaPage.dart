@@ -124,7 +124,7 @@ class _EditDankaPageState extends State<EditDankaPage> {
                                   controller:
                                       TextEditingController(text: danka.name),
                                   onChanged: (text) {
-                                    model.name = text;
+                                    danka.name = text;
                                   },
                                 ),
                               ),
@@ -199,7 +199,7 @@ class _EditDankaPageState extends State<EditDankaPage> {
                                   controller: TextEditingController(
                                       text: danka.address),
                                   onChanged: (text) {
-                                    model.address = text;
+                                    danka.address = text;
                                   },
                                 ),
                               ),
@@ -321,7 +321,7 @@ class _EditDankaPageState extends State<EditDankaPage> {
                                 controller:
                                     TextEditingController(text: danka.others),
                                 onChanged: (text) {
-                                  model.others = text;
+                                  danka.others = text;
                                 },
                               ),
                             ),
