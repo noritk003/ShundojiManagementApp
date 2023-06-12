@@ -111,7 +111,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
                                             color: Color(0xffD9D9D9))),
                                   ),
                                   onChanged: (text) {
-                                    model.name = text;
+                                    model.danka.name = text;
                                   },
                                 ),
                               ),
@@ -184,7 +184,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
                                             color: Color(0xffD9D9D9))),
                                   ),
                                   onChanged: (text) {
-                                    model.address = text;
+                                    model.danka.address = text;
                                   },
                                 ),
                               ),
@@ -236,7 +236,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
                             value: buppanState,
                             onChanged: (value) {
                               setState(() => buppanState = value);
-                              model.buppanFlg =
+                              model.danka.buppanFlg =
                                   model.ConvertBoolToInt(buppanState);
                             },
                           ),
@@ -304,7 +304,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
                                           BorderSide(color: Color(0xffD9D9D9))),
                                 ),
                                 onChanged: (text) {
-                                  model.others = text;
+                                  model.danka.others = text;
                                 },
                               ),
                             ),
@@ -351,7 +351,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
                                 try {
                                   model.startLoading();
                                   await model.addDanka();
-                                  Navigator.of(context).pop(model.name);
+                                  Navigator.of(context).pop(model.danka.name);
                                 } catch (e) {
                                   final snackBar = SnackBar(
                                     backgroundColor: Colors.red,

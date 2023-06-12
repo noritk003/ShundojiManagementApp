@@ -21,9 +21,9 @@ class EditDankaModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future updateDanka() async {
+  Future updateDanka(danka) async {
     
-    await databaseController.update(id, name, address, buppanFlg, others);
+    await databaseController.update(danka);
   }
 
   int ConvertBoolToInt(pBool) {

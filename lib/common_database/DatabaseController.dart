@@ -1,15 +1,17 @@
+import 'package:shundoji_management_app/domein/danka.dart';
+
 import 'DatabaseHelper.dart';
 
 class DatabaseController {
   final databaseHelper = DatabaseHelper.instance;
 
   // レコード追加
-  Future insert(name, address, buppanFlg, others) async {
+  Future insert(data) async {
     Map<String, dynamic> row = {
-      DatabaseHelper.columnName: name,
-      DatabaseHelper.columnAddress: address,
-      DatabaseHelper.columnBuppanFlg: buppanFlg,
-      DatabaseHelper.columnOthers: others
+      DatabaseHelper.columnName: data.name,
+      DatabaseHelper.columnAddress: data.address,
+      DatabaseHelper.columnBuppanFlg: data.buppanFlg,
+      DatabaseHelper.columnOthers: data.others
     };
     final id = await databaseHelper.insert(row);
     print('登録しました。id: $id');
@@ -24,13 +26,13 @@ class DatabaseController {
   }
 
   // データ更新
-  Future update(id, name, address, buppanFlg, others) async {
+  Future update(data) async {
     Map<String, dynamic> row = {
-      DatabaseHelper.columnId: 1,
-      DatabaseHelper.columnName: name,
-      DatabaseHelper.columnAddress: address,
-      DatabaseHelper.columnBuppanFlg: buppanFlg,
-      DatabaseHelper.columnOthers: others
+      DatabaseHelper.columnId: data.dankaId,
+      DatabaseHelper.columnName: data.name,
+      DatabaseHelper.columnAddress: data.address,
+      DatabaseHelper.columnBuppanFlg: data.buppanFlg,
+      DatabaseHelper.columnOthers: data.others
     };
     final rowsAffected = await databaseHelper.update(row);
     print('更新しました。 ID：$rowsAffected ');

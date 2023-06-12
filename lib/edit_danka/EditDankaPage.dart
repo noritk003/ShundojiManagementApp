@@ -367,7 +367,7 @@ class _EditDankaPageState extends State<EditDankaPage> {
                               onPressed: () async {
                                 try {
                                   model.startLoading();
-                                  await model.updateDanka();
+                                  await model.updateDanka(danka);
                                   Navigator.of(context).pop(model.name);
                                 } catch (e) {
                                   final snackBar = SnackBar(
