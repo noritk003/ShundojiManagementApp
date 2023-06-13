@@ -368,7 +368,7 @@ class _EditDankaPageState extends State<EditDankaPage> {
                                 try {
                                   model.startLoading();
                                   await model.updateDanka(danka);
-                                  Navigator.of(context).pop(model.name);
+                                  Navigator.of(context).pop(danka.name);
                                 } catch (e) {
                                   final snackBar = SnackBar(
                                     backgroundColor: Colors.red,

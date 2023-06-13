@@ -73,7 +73,7 @@ class DankaListPage extends StatelessWidget {
                                 await Navigator.push(
                                   context,
                                   PageTransition(
-                                    child: DankaDetailPage(danka), //画面遷移先
+                                    child: DankaDetailPage(danka.dankaId), //画面遷移先
                                     type: PageTransitionType
                                         .rightToLeft, //アニメーションの種類
                                   ),

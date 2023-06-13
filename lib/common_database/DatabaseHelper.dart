@@ -74,10 +74,16 @@ class DatabaseHelper {
     return await db!.insert(table, row);
   }
 
-  // データ照会
+  // データ全件照会
   Future<List<Map<String, dynamic>>> queryAllRows() async {
     Database? db = await instance.database;
     return await db!.query(table);
+  }
+
+  // データ照会(ID指定)
+  Future<List<Map<String, dynamic>>> querySelectedId(id) async {
+    Database? db = await instance.database;
+    return await db!.query(table, where: '$columnId = ?', whereArgs: [id]);
   }
 
   // データ更新

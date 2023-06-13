@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shundoji_management_app/common_database/DatabaseController.dart';
 
 class EditDankaModel extends ChangeNotifier {
-  String? name;
-  String? address;
-  int buppanFlg = 1;
-  String? others;
+  // String? name;
+  // String? address;
+  // int buppanFlg = 1;
+  // String? others;
 
   bool isLoading = false;
 
@@ -22,9 +22,11 @@ class EditDankaModel extends ChangeNotifier {
   }
 
   Future updateDanka(danka) async {
-    
     await databaseController.update(danka);
+    notifyListeners();
   }
+
+  void setDankaData(dankaData) {}
 
   int ConvertBoolToInt(pBool) {
     int rtnValue;

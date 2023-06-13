@@ -25,7 +25,13 @@ class DatabaseController {
     return allRows;
   }
 
-  // データ更新
+  // データ照会(ID指定)
+  Future querySelectedId(id) async {
+    final selectedIdData = await databaseHelper.querySelectedId(id);
+    return selectedIdData;
+  }
+
+  // データ全件更新
   Future update(data) async {
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: data.dankaId,
