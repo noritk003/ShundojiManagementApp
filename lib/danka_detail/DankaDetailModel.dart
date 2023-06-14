@@ -5,8 +5,9 @@ import 'package:shundoji_management_app/domein/danka.dart';
 class DankaDetailModel extends ChangeNotifier {
   // late List<Map<String, dynamic>> dankaList;
   List<Danka>? dankaList;
+  Danka danka = Danka();
 
-  Future getSelectedData(selectedId) async {
+  Future<List<Danka>?> getSelectedData(selectedId) async {
     List<Map<String, dynamic>> selectedData =
         await DatabaseController().querySelectedId(selectedId);
     // dankaList = selectedData;
@@ -21,6 +22,8 @@ class DankaDetailModel extends ChangeNotifier {
       danka.others = data['others'];
       return danka;
     }).toList();
+
+    // danka.name = dankaList[0];
     notifyListeners();
 
     return dankaList;

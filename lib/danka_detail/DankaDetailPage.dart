@@ -12,13 +12,14 @@ import '../domein/danka.dart';
 
 class DankaDetailPage extends StatelessWidget {
   DankaDetailPage(this.dankaId) {
-    
-    // 型違って代入できない
-    dankaList = DankaDetailModel().getSelectedData(dankaId);
+    // 型変換うまくいかない
+    dankaData = DankaDetailModel().getSelectedData(dankaId) as List<Danka>;
+    danka = dankaData[0];
   }
 
   int dankaId;
-  List<Danka> dankaList;
+  late List<Danka> dankaData;
+  late Danka danka;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class DankaDetailPage extends StatelessWidget {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditDankaPage(dankaList),
+                      builder: (context) => EditDankaPage(danka),
                       fullscreenDialog: true,
                     ),
                   );
