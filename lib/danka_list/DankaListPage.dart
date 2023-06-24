@@ -73,7 +73,8 @@ class DankaListPage extends StatelessWidget {
                                 await Navigator.push(
                                   context,
                                   PageTransition(
-                                    child: DankaDetailPage(danka.dankaId), //画面遷移先
+                                    child:
+                                        DankaDetailPage(danka.dankaId), //画面遷移先
                                     type: PageTransitionType
                                         .rightToLeft, //アニメーションの種類
                                   ),
@@ -86,15 +87,38 @@ class DankaListPage extends StatelessWidget {
                           motion: ScrollMotion(),
                           children: [
                             // 削除ボタン
-                            SlidableAction(
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
-                              icon: Icons.delete,
-                              label: '削除',
-                              onPressed: (BuildContext) async {
-                                // 削除しますか？ポップ表示
-                                await showComfirmDialog(context, danka, model);
-                              },
+                            Container(
+                              width: 185,
+                              height: 85,
+                              decoration: BoxDecoration(
+                                  // border: Border.all(color: Color(0xffEAE8E8)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  color: Color(0xffFBFAF5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xff404040),
+                                        offset: Offset(3, 3),
+                                        blurRadius: 3),
+                                    BoxShadow(
+                                        color: Color(0xffffffff),
+                                        offset: Offset(-3, -3),
+                                        blurRadius: 3)
+                                  ]),
+                              child: SlidableAction(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
+                                icon: Icons.delete,
+                                label: '削除',
+                                onPressed: (BuildContext) async {
+                                  model.dankaDelete(danka.dankaId);
+                                  // 削除しますか？ポップ表示
+                                  await showComfirmDialog(
+                                      context, danka, model);
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -154,7 +178,7 @@ class DankaListPage extends StatelessWidget {
             TextButton(
               child: Text("はい"),
               onPressed: () async {
-                await DatabaseController().delete(danka);
+                await DatabaseController().delete(danka.dankaId);
                 Navigator.pop(context);
                 final snackBar = SnackBar(
                   backgroundColor: Colors.red,

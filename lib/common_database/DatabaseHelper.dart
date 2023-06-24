@@ -81,7 +81,7 @@ class DatabaseHelper {
   }
 
   // データ照会(ID指定)
-  Future<List<Map<String, dynamic>>> querySelectedId(id) async {
+  Future<List<Map<String, dynamic>>> querySelectedId(int id) async {
     Database? db = await instance.database;
     return await db!.query(table, where: '$columnId = ?', whereArgs: [id]);
   }

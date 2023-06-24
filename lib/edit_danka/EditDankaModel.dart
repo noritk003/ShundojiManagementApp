@@ -26,8 +26,6 @@ class EditDankaModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setDankaData(dankaData) {}
-
   int ConvertBoolToInt(pBool) {
     int rtnValue;
     if (pBool) {

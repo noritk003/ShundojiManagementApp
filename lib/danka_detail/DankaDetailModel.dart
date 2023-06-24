@@ -7,14 +7,14 @@ class DankaDetailModel extends ChangeNotifier {
   List<Danka>? dankaList;
   Danka danka = Danka();
 
-  Future<List<Danka>?> getSelectedData(selectedId) async {
+  void getSelectedData(selectedId) async {
     List<Map<String, dynamic>> selectedData =
         await DatabaseController().querySelectedId(selectedId);
     // dankaList = selectedData;
     // return selectedData;
 
     dankaList = selectedData.map((Map data) {
-      Danka danka = Danka();
+      // Danka danka = Danka();
       danka.dankaId = data['danka_id'];
       danka.name = data['name'];
       danka.address = data['address'];
@@ -22,10 +22,6 @@ class DankaDetailModel extends ChangeNotifier {
       danka.others = data['others'];
       return danka;
     }).toList();
-
-    // danka.name = dankaList[0];
     notifyListeners();
-
-    return dankaList;
   }
 }
