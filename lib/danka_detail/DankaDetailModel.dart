@@ -3,15 +3,12 @@ import 'package:shundoji_management_app/common_database/DatabaseController.dart'
 import 'package:shundoji_management_app/domein/danka.dart';
 
 class DankaDetailModel extends ChangeNotifier {
-  // late List<Map<String, dynamic>> dankaList;
   List<Danka>? dankaList;
   Danka danka = Danka();
 
   void getSelectedData(selectedId) async {
     List<Map<String, dynamic>> selectedData =
         await DatabaseController().querySelectedId(selectedId);
-    // dankaList = selectedData;
-    // return selectedData;
 
     dankaList = selectedData.map((Map data) {
       // Danka danka = Danka();
