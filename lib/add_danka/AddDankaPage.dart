@@ -34,11 +34,16 @@ class _AddDankaPageState extends State<AddDankaPage> {
                     fit: BoxFit.cover),
               )),
               actions: [
-                Icon(
-                  Icons.save,
-                  color: Colors.black,
-                  size: 30,
-                ),
+                Consumer<AddDankaModel>(builder: (context, model, child) {
+                  final Widget widgets = IconButton(
+                      icon: Icon(Icons.save),
+                      color: Colors.black,
+                      iconSize: 30,
+                      onPressed: () async {
+                        addDankaData(model);
+                      });
+                  return widgets;
+                }),
                 SizedBox(
                   width: 40,
                 )
@@ -348,20 +353,7 @@ class _AddDankaPageState extends State<AddDankaPage> {
                                     fontSize: 12, color: Color(0xff000000)),
                               ),
                               onPressed: () async {
-                                try {
-                                  model.startLoading();
-                                  await model.addDanka();
-                                  Navigator.of(context).pop(model.danka.name);
-                                } catch (e) {
-                                  final snackBar = SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(e.toString()),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                } finally {
-                                  model.endLoading();
-                                }
+                                addDankaData(model);
                               }),
                         ),
                       ),
@@ -370,5 +362,21 @@ class _AddDankaPageState extends State<AddDankaPage> {
                 ]);
               }),
             )));
+  }
+
+  void addDankaData(model) async {
+    try {
+      model.startLoading();
+      await model.addDanka();
+      Navigator.of(context).pop(model.danka.name);
+    } catch (e) {
+      final snackBar = SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(e.toString()),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } finally {
+      model.endLoading();
+    }
   }
 }

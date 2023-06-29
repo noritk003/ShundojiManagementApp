@@ -24,6 +24,17 @@ class DankaListPage extends StatelessWidget {
             image: DecorationImage(
                 image: AssetImage('images/appbar_bk.jpg'), fit: BoxFit.cover),
           )),
+          title: _searchTextField(),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 60),
+              child: IconButton(
+                  icon: Icon(Icons.sort),
+                  color: Colors.black,
+                  iconSize: 30,
+                  onPressed: () async {}),
+            ),
+          ],
         ),
         body: Center(
           child: Padding(
@@ -79,6 +90,7 @@ class DankaListPage extends StatelessWidget {
                                         .rightToLeft, //アニメーションの種類
                                   ),
                                 );
+                                model.fetchDabkaList();
                               },
                             ),
                           ),
@@ -158,6 +170,30 @@ class DankaListPage extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+  Widget _searchTextField() {
+    return SizedBox(
+      height: 40,
+      width: 250,
+      child: TextField(
+          decoration: InputDecoration(
+        icon: Icon(
+          Icons.search,
+          color: Colors.black,
+        ),
+        suffixIcon: Icon(
+          Icons.clear,
+          color: Colors.grey,
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        contentPadding: EdgeInsets.all(10),
+      )),
     );
   }
 

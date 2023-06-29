@@ -37,17 +37,12 @@ class DankaDetailPage extends StatelessWidget {
                   color: Colors.black,
                   iconSize: 30,
                   onPressed: () async {
-                    // final result = await Navigator.push(
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => EditDankaPage(danka),
-                        // fullscreenDialog: true,
                       ),
                     );
-                    // DankaDetailModel().getSelectedData(dankaId);
-                    // final model = context.read();
-                    // model.reload();
                     model.getSelectedData(dankaId);
                   });
               return widgets;
@@ -57,87 +52,66 @@ class DankaDetailPage extends StatelessWidget {
             )
           ],
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Consumer<DankaDetailModel>(builder: (context, model, child) {
-              // final List<Danka>? dankaList = model.dankaList;
-              danka = model.danka;
+        body: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Consumer<DankaDetailModel>(builder: (context, model, child) {
+            danka = model.danka;
 
-              if (danka == null) {
-                return CircularProgressIndicator();
-              }
-              final Widget widgets = Padding(
-                padding: const EdgeInsets.only(top: 50, right: 40, left: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
-                        icon: Icon(Icons.edit),
-                        color: Colors.black,
-                        iconSize: 30,
-                        onPressed: () async {
-                          // final result = await Navigator.push(
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditDankaPage(danka),
-                              // fullscreenDialog: true,
-                            ),
-                          );
-                          DankaDetailModel().getSelectedData(dankaId);
-                          // model.getSelectedData(dankaId);
-                          // final model = context.read();
-                          // model.reload();
-                        }),
-                    Text(
-                      '名前',
-                      style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
-                    ),
-                    Text(
-                      model.danka.name,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      '地域',
-                      style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
-                    ),
-                    Text(
-                      model.danka.address,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      '仏飯',
-                      style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
-                    ),
-                    buppanFlgPresence(model.danka.buppanFlg),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'その他',
-                      style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
-                    ),
-                    Text(
-                      model.danka.others,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
-              );
+            if (danka == null) {
+              return CircularProgressIndicator();
+            }
+            final Widget widgets = Padding(
+              padding: const EdgeInsets.only(top: 50, right: 40, left: 60),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '名前',
+                    style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
+                  ),
+                  Text(
+                    model.danka.name,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    '地域',
+                    style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
+                  ),
+                  Text(
+                    model.danka.address,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    '仏飯',
+                    style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
+                  ),
+                  buppanFlgPresence(model.danka.buppanFlg),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'その他',
+                    style: TextStyle(fontSize: 12, color: Color(0xffAD1E6B)),
+                  ),
+                  Text(
+                    model.danka.others,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
+            );
 
-              return widgets;
-            }),
-          ),
+            return widgets;
+          }),
         ),
       ),
     );

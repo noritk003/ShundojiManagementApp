@@ -9,8 +9,6 @@ import 'package:shundoji_management_app/domein/danka.dart';
 import 'EditDankaModel.dart';
 
 class EditDankaPage extends StatefulWidget {
-  // const EditDankaPage({super.key});
-
   EditDankaPage(this.danka);
 
   Danka danka;
@@ -45,11 +43,16 @@ class _EditDankaPageState extends State<EditDankaPage> {
                     fit: BoxFit.cover),
               )),
               actions: [
-                Icon(
-                  Icons.save,
-                  color: Colors.black,
-                  size: 30,
-                ),
+                Consumer<EditDankaModel>(builder: (context, model, child) {
+                  final Widget widgets = IconButton(
+                      icon: Icon(Icons.save),
+                      color: Colors.black,
+                      iconSize: 30,
+                      onPressed: () async {
+                        savedEditData(model);
+                      });
+                  return widgets;
+                }),
                 SizedBox(
                   width: 40,
                 )
@@ -365,20 +368,7 @@ class _EditDankaPageState extends State<EditDankaPage> {
                                     fontSize: 12, color: Color(0xff000000)),
                               ),
                               onPressed: () async {
-                                try {
-                                  model.startLoading();
-                                  await model.updateDanka(danka);
-                                  Navigator.of(context).pop(danka.name);
-                                } catch (e) {
-                                  final snackBar = SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(e.toString()),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                } finally {
-                                  model.endLoading();
-                                }
+                                savedEditData(model);
                               }),
                         ),
                       ),
@@ -387,5 +377,21 @@ class _EditDankaPageState extends State<EditDankaPage> {
                 ]);
               }),
             )));
+  }
+
+  void savedEditData(model) async {
+    try {
+      model.startLoading();
+      await model.updateDanka(danka);
+      Navigator.of(context).pop(danka.name);
+    } catch (e) {
+      final snackBar = SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(e.toString()),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } finally {
+      model.endLoading();
+    }
   }
 }

@@ -11,7 +11,6 @@ class DankaDetailModel extends ChangeNotifier {
         await DatabaseController().querySelectedId(selectedId);
 
     dankaList = selectedData.map((Map data) {
-      // Danka danka = Danka();
       danka.dankaId = data['danka_id'];
       danka.name = data['name'];
       danka.address = data['address'];
