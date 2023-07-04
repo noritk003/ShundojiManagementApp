@@ -11,7 +11,16 @@ import '../domein/danka.dart';
 import '../edit_danka/EditDankaPage.dart';
 import 'DankaListModel.dart';
 
-class DankaListPage extends StatelessWidget {
+class DankaListPage extends StatefulWidget {
+  const DankaListPage({Key? key}) : super(key: key);
+
+  @override
+  _DankaListPageState createState() => _DankaListPageState();
+}
+
+class _DankaListPageState extends State<DankaListPage> {
+  List<Danka>? dankaList = [];
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DankaListModel>(
@@ -40,13 +49,13 @@ class DankaListPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Consumer<DankaListModel>(builder: (context, model, child) {
-              final List<Danka>? dankaList = model.dankaList;
+              dankaList = model.dankaList;
 
               if (dankaList == null) {
                 return CircularProgressIndicator();
               }
 
-              final List<Widget> widgets = dankaList
+              final List<Widget> widgets = dankaList!
                   .map((danka) => Slidable(
                         child: Padding(
                           padding: const EdgeInsets.only(
@@ -174,11 +183,8 @@ class DankaListPage extends StatelessWidget {
   }
 
   Widget _searchTextField() {
-    return SizedBox(
-      height: 40,
-      width: 250,
-      child: TextField(
-          decoration: InputDecoration(
+    return TextField(
+      decoration: InputDecoration(
         icon: Icon(
           Icons.search,
           color: Colors.black,
@@ -193,7 +199,20 @@ class DankaListPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         contentPadding: EdgeInsets.all(10),
-      )),
+      ),
+      onChanged: (String searchWord) {
+        setState(() {
+          List<Danka> _searchIndexList = [];
+          // if(dankaList != null){
+          for (int i = 0; i < dankaList!.length; i++) {
+            if (dankaList![i].name.contains(searchWord)) {
+              _searchIndexList.add(dankaList![i]);
+            }
+          }
+          // }
+          // dankaList = _searchIndexList;
+        });
+      },
     );
   }
 
