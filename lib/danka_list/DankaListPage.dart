@@ -19,7 +19,7 @@ class DankaListPage extends StatefulWidget {
 }
 
 class _DankaListPageState extends State<DankaListPage> {
-  List<Danka>? dankaList = [];
+  List<Danka>? dankaList;
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +49,14 @@ class _DankaListPageState extends State<DankaListPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Consumer<DankaListModel>(builder: (context, model, child) {
-              dankaList = model.dankaList;
+              // dankaList = model.dankaList;
 
               if (dankaList == null) {
-                return CircularProgressIndicator();
+                if (model.dankaList == null) {
+                  return CircularProgressIndicator();
+                } else {
+                  dankaList = model.dankaList;
+                }
               }
 
               final List<Widget> widgets = dankaList!
@@ -210,7 +214,7 @@ class _DankaListPageState extends State<DankaListPage> {
             }
           }
           // }
-          // dankaList = _searchIndexList;
+          dankaList = _searchIndexList;
         });
       },
     );
