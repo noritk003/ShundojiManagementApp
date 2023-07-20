@@ -20,6 +20,7 @@ class DankaListPage extends StatefulWidget {
 
 class _DankaListPageState extends State<DankaListPage> {
   List<Danka>? dankaList;
+  bool createSearchIndexListFlg = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +50,10 @@ class _DankaListPageState extends State<DankaListPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Consumer<DankaListModel>(builder: (context, model, child) {
-              // dankaList = model.dankaList;
-
-              if (dankaList == null) {
-                if (model.dankaList == null) {
-                  return CircularProgressIndicator();
-                } else {
+              if (model.dankaList == null) {
+                return CircularProgressIndicator();
+              } else {
+                if (!createSearchIndexListFlg) {
                   dankaList = model.dankaList;
                 }
               }
@@ -149,6 +148,8 @@ class _DankaListPageState extends State<DankaListPage> {
                         ),
                       ))
                   .toList();
+              dankaList = model.dankaList;
+              createSearchIndexListFlg = false;
               return ListView(
                 children: widgets,
               );
@@ -207,14 +208,13 @@ class _DankaListPageState extends State<DankaListPage> {
       onChanged: (String searchWord) {
         setState(() {
           List<Danka> _searchIndexList = [];
-          // if(dankaList != null){
           for (int i = 0; i < dankaList!.length; i++) {
             if (dankaList![i].name.contains(searchWord)) {
               _searchIndexList.add(dankaList![i]);
             }
           }
-          // }
           dankaList = _searchIndexList;
+          createSearchIndexListFlg = true;
         });
       },
     );
