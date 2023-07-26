@@ -188,16 +188,29 @@ class _DankaListPageState extends State<DankaListPage> {
   }
 
   Widget _searchTextField() {
+    var _controller = TextEditingController();
+    List<Danka> _originalDankaList = []; // 元のリストを保存するための変数
     return TextField(
+      controller: _controller,
       decoration: InputDecoration(
         icon: Icon(
           Icons.search,
           color: Colors.black,
         ),
-        suffixIcon: Icon(
-          Icons.clear,
-          color: Colors.grey,
-        ),
+        suffixIcon: IconButton(
+            onPressed: () {
+              _controller.clear();
+              setState(() {
+                dankaList = List.from(_originalDankaList); // 元のリストに戻す
+              });
+            },
+            icon: Icon(Icons.clear),
+            color: Colors.grey,
+            ),
+        // suffixIcon: Icon(
+        //   Icons.clear,
+        //   color: Colors.grey,
+        // ),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
@@ -208,9 +221,9 @@ class _DankaListPageState extends State<DankaListPage> {
       onChanged: (String searchWord) {
         setState(() {
           List<Danka> _searchIndexList = [];
-          for (int i = 0; i < dankaList!.length; i++) {
-            if (dankaList![i].name.contains(searchWord)) {
-              _searchIndexList.add(dankaList![i]);
+          for (int i = 0; i < _originalDankaList.length; i++) {
+            if (_originalDankaList[i].name.contains(searchWord)) {
+              _searchIndexList.add(_originalDankaList[i]);
             }
           }
           dankaList = _searchIndexList;
