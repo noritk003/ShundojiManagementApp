@@ -37,7 +37,7 @@ class _DankaListPageState extends State<DankaListPage> {
           title: _searchTextField(),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 60),
+              padding: const EdgeInsets.only(right: 20),
               child: IconButton(
                   icon: Icon(Icons.sort),
                   color: Colors.black,
@@ -198,15 +198,17 @@ class _DankaListPageState extends State<DankaListPage> {
           color: Colors.black,
         ),
         suffixIcon: IconButton(
-            onPressed: () {
-              _controller.clear();
-              setState(() {
-                dankaList = List.from(_originalDankaList); // 元のリストに戻す
-              });
-            },
-            icon: Icon(Icons.clear),
-            color: Colors.grey,
-            ),
+          onPressed: () {
+            // if (createSearchIndexListFlg) {
+            _controller.clear();
+            // }
+            // setState(() {
+            //   dankaList = List.from(_originalDankaList); // 元のリストに戻す
+            // });
+          },
+          icon: Icon(Icons.clear),
+          color: Colors.grey,
+        ),
         // suffixIcon: Icon(
         //   Icons.clear,
         //   color: Colors.grey,
@@ -219,16 +221,16 @@ class _DankaListPageState extends State<DankaListPage> {
         contentPadding: EdgeInsets.all(10),
       ),
       onChanged: (String searchWord) {
-        setState(() {
-          List<Danka> _searchIndexList = [];
-          for (int i = 0; i < _originalDankaList.length; i++) {
-            if (_originalDankaList[i].name.contains(searchWord)) {
-              _searchIndexList.add(_originalDankaList[i]);
-            }
-          }
-          dankaList = _searchIndexList;
-          createSearchIndexListFlg = true;
-        });
+        // setState(() {
+        //   List<Danka> _searchIndexList = [];
+        //   for (int i = 0; i < dankaList!.length; i++) {
+        //     if (dankaList![i].name.contains(searchWord)) {
+        //       _searchIndexList.add(dankaList![i]);
+        //     }
+        //   }
+        //   dankaList = _searchIndexList;
+        //   createSearchIndexListFlg = true;
+        // });
       },
     );
   }
