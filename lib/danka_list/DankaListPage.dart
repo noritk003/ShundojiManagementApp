@@ -21,6 +21,7 @@ class DankaListPage extends StatefulWidget {
 class _DankaListPageState extends State<DankaListPage> {
   List<Danka>? dankaList;
   bool createSearchIndexListFlg = false;
+  var _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +189,6 @@ class _DankaListPageState extends State<DankaListPage> {
   }
 
   Widget _searchTextField() {
-    var _controller = TextEditingController();
-    List<Danka> _originalDankaList = []; // 元のリストを保存するための変数
     return TextField(
       controller: _controller,
       decoration: InputDecoration(
@@ -199,20 +198,13 @@ class _DankaListPageState extends State<DankaListPage> {
         ),
         suffixIcon: IconButton(
           onPressed: () {
-            // if (createSearchIndexListFlg) {
-            _controller.clear();
-            // }
-            // setState(() {
-            //   dankaList = List.from(_originalDankaList); // 元のリストに戻す
-            // });
+            setState(() {
+              _controller.clear();
+            });
           },
           icon: Icon(Icons.clear),
           color: Colors.grey,
         ),
-        // suffixIcon: Icon(
-        //   Icons.clear,
-        //   color: Colors.grey,
-        // ),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
@@ -221,16 +213,16 @@ class _DankaListPageState extends State<DankaListPage> {
         contentPadding: EdgeInsets.all(10),
       ),
       onChanged: (String searchWord) {
-        // setState(() {
-        //   List<Danka> _searchIndexList = [];
-        //   for (int i = 0; i < dankaList!.length; i++) {
-        //     if (dankaList![i].name.contains(searchWord)) {
-        //       _searchIndexList.add(dankaList![i]);
-        //     }
-        //   }
-        //   dankaList = _searchIndexList;
-        //   createSearchIndexListFlg = true;
-        // });
+        setState(() {
+          List<Danka> _searchIndexList = [];
+          for (int i = 0; i < dankaList!.length; i++) {
+            if (dankaList![i].name.contains(searchWord)) {
+              _searchIndexList.add(dankaList![i]);
+            }
+          }
+          dankaList = _searchIndexList;
+          createSearchIndexListFlg = true;
+        });
       },
     );
   }
