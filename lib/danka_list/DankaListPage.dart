@@ -37,14 +37,21 @@ class _DankaListPageState extends State<DankaListPage> {
           )),
           title: _searchTextField(),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: IconButton(
-                  icon: Icon(Icons.sort),
-                  color: Colors.black,
-                  iconSize: 30,
-                  onPressed: () async {}),
-            ),
+            DropdownButton(
+                items: const [DropdownMenuItem(child: Text('名前順'),value: '名前順',)],
+                onChanged: (String? value) {
+                  sortList();
+                }),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 20),
+            //   child: IconButton(
+            //       icon: Icon(Icons.sort),
+            //       color: Colors.black,
+            //       iconSize: 30,
+            //       onPressed: () async {
+            //         sortList();
+            //       }),
+            // ),
           ],
         ),
         body: Center(
@@ -225,6 +232,12 @@ class _DankaListPageState extends State<DankaListPage> {
         });
       },
     );
+  }
+
+  void sortList() {
+    setState(() {
+      dankaList!.sort(((a, b) => a.name.compareTo(b.name)));
+    });
   }
 
   Future showComfirmDialog(
