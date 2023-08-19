@@ -1,5 +1,4 @@
 class Danka {
-  // Danka(this.dankaId, this.name, this.address, this.buppanFlg, this.others);
 
   int _fDankaId = 0;
   String _fName = "";

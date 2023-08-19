@@ -37,21 +37,33 @@ class _DankaListPageState extends State<DankaListPage> {
           )),
           title: _searchTextField(),
           actions: [
-            DropdownButton(
-                items: const [DropdownMenuItem(child: Text('名前順'),value: '名前順',)],
-                onChanged: (String? value) {
-                  sortList();
-                }),
-            // Padding(
-            //   padding: const EdgeInsets.only(right: 20),
-            //   child: IconButton(
-            //       icon: Icon(Icons.sort),
-            //       color: Colors.black,
-            //       iconSize: 30,
-            //       onPressed: () async {
-            //         sortList();
-            //       }),
-            // ),
+            Padding(
+              padding: const EdgeInsets.only(right: 35),
+              child: SizedBox(
+                width: 40,
+                child: DropdownButton(
+                    isExpanded: true,
+                    icon: Icon(Icons.sort),
+                    underline: Container(),
+                    items: const [
+                      DropdownMenuItem(
+                        child: Text('追加順'),
+                        value: '追加順',
+                      ),
+                      DropdownMenuItem(
+                        child: Text('名前順'),
+                        value: '名前順',
+                      )
+                    ],
+                    onChanged: (String? value) {
+                      if ('追加順' == value) {
+                        orderOfAddition();
+                      } else if ('名前順' == value) {
+                        orderOfName();
+                      }
+                    }),
+              ),
+            ),
           ],
         ),
         body: Center(
@@ -234,9 +246,15 @@ class _DankaListPageState extends State<DankaListPage> {
     );
   }
 
-  void sortList() {
+  void orderOfName() {
     setState(() {
       dankaList!.sort(((a, b) => a.name.compareTo(b.name)));
+    });
+  }
+
+  void orderOfAddition() {
+    setState(() {
+      dankaList!.sort(((a, b) => a.dankaId.compareTo(b.dankaId)));
     });
   }
 

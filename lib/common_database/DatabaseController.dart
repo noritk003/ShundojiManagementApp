@@ -46,9 +46,7 @@ class DatabaseController {
 
   // データ削除
   Future delete(id) async {
-    // final id = await databaseHelper.queryRowCount();
     final rowsDeleted = await databaseHelper.delete(id);
-    // await databaseHelper.delete(id);
     print('削除しました。 $rowsDeleted ID: $id');
   }
 }
