@@ -135,7 +135,6 @@ class _DankaListPageState extends State<DankaListPage> {
                               width: 185,
                               height: 85,
                               decoration: BoxDecoration(
-                                  // border: Border.all(color: Color(0xffEAE8E8)),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
                                   color: Color(0xffFBFAF5),
@@ -157,7 +156,6 @@ class _DankaListPageState extends State<DankaListPage> {
                                 icon: Icons.delete,
                                 label: '削除',
                                 onPressed: (BuildContext) async {
-                                  model.dankaDelete(danka.dankaId);
                                   // 削除しますか？ポップ表示
                                   await showComfirmDialog(
                                       context, danka, model);
@@ -178,29 +176,45 @@ class _DankaListPageState extends State<DankaListPage> {
         ),
         floatingActionButton:
             Consumer<DankaListModel>(builder: (context, model, child) {
-          return FloatingActionButton(
-            onPressed: () async {
-              // 画面遷移
-              final String? added = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddDankaPage(),
-                  fullscreenDialog: true,
-                ),
-              );
-
-              model.fetchDabkaList();
-              if (added != null) {
-                final snackBar = SnackBar(
-                  backgroundColor: Colors.green,
-                  content: Text('${added}さんを追加しました'),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-            },
-            tooltip: 'Increment',
-            child: Icon(Icons.group_add),
-            backgroundColor: Color(0xffFF5959),
+          return Column(
+            verticalDirection: VerticalDirection.up,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FloatingActionButton(
+                heroTag: "addDanka",
+                onPressed: () async {
+                  // 画面遷移
+                  final String? added = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddDankaPage(),
+                      fullscreenDialog: true,
+                    ),
+                  );
+                  model.fetchDabkaList();
+                  if (added != null) {
+                    final snackBar = SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text('${added}さんを追加しました'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
+                tooltip: 'Increment',
+                child: Icon(Icons.group_add),
+                backgroundColor: Color(0xffFF5959),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 16.0),
+                child: FloatingActionButton(
+                    heroTag: "showMap",
+                    child: Icon(Icons.map_outlined),
+                    backgroundColor: Color(0xffD9A62E),
+                    onPressed: (() async {
+                      await mapDialog();
+                    })),
+              )
+            ],
           );
         }),
       ),
@@ -275,7 +289,7 @@ class _DankaListPageState extends State<DankaListPage> {
             TextButton(
               child: Text("はい"),
               onPressed: () async {
-                await DatabaseController().delete(danka.dankaId);
+                model.dankaDelete(danka.dankaId);
                 Navigator.pop(context);
                 final snackBar = SnackBar(
                   backgroundColor: Colors.red,
@@ -286,6 +300,34 @@ class _DankaListPageState extends State<DankaListPage> {
               },
             ),
           ],
+        );
+      },
+    );
+  }
+
+  Future mapDialog() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Image.asset('images/MapImage.png',
+              height: 500, width: 350, fit: BoxFit.cover),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                child: Text("閉じる"),
+                style: TextButton.styleFrom(
+                    foregroundColor: Color(0xffAD1E6B),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                    )),
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
+          ),
         );
       },
     );
